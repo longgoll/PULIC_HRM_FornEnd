@@ -1,0 +1,37 @@
+.wrapper {
+  box-shadow: 5px 4px 24px 5px rgb(34 41 47 / 10%);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.container01 {
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  background-color: #7367f0 !important;
+  border: 1px solid #7367f0 !important;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  padding: 5px;
+  text-align: center;
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
+    transform: translateY(-2px);
+  }
+}

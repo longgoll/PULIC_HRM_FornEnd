@@ -8,6 +8,7 @@ import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import Personnel from '../pages/personnel/Personnel';
 import PersonnelDetails from '../pages/PersonnelDetails/PersonnelDetails';
+import Tool from '../pages/Tool/Tool';
 
 const publicRoutes = [
   { path: '/login', component: Login, layout: null },
@@ -24,6 +25,8 @@ const publicRoutes = [
   { path: '/dependent-person', component: DependentPerson },
   { path: '/dependent-person-add/:id', component: AddDependentPerson },
   { path: '/dependent-person-edit/:id', component: EditDependentPerson },
+  //==========
+  { path: '/tools', component: Tool },
 ];
 
 export { publicRoutes };

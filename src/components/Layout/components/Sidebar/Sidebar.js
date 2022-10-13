@@ -3,7 +3,7 @@ import styles from './Sidebar.module.scss';
 // import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { AiOutlineHome, AiOutlineSolution, AiOutlineTeam } from 'react-icons/ai';
-import { BiBriefcase } from 'react-icons/bi';
+import { BiBriefcase, BiCoinStack } from 'react-icons/bi';
 
 const cx = classNames.bind(styles);
 
@@ -51,8 +51,8 @@ function Sidebar() {
             <li className={cx('navigation-header')}>
               <span>Công ty</span>
             </li>
-            <NavLink to="/" className={cx('item')}>
-              <BiBriefcase />
+            <NavLink to="/tools" className={cx('item')}>
+              <BiCoinStack />
               Công cụ
             </NavLink>
           </ul>
