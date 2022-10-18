@@ -102,11 +102,35 @@ function PersonnelDetails() {
           // alert('ok');
           setReloadDependentPerson(!ReloadDependentPerson);
           pupsuccess(req.data.message);
+          xoa_NPT();
         })
         .catch((error) => {
           pupwarn('Thử lại sau');
         });
     };
+  };
+
+  //cặp nhật lại số người phụ thuộc sau khi xóa
+  const xoa_NPT = () => {
+    //cộng người phụ thuộc
+    //lấy id nhân viên trên url
+    const url = window.location.pathname.split('/');
+    axios
+      .post(
+        apiUrl + '/v1/update-sum-dependent/' + url[2],
+        {},
+        {
+          headers: {
+            token: cookieValue(),
+          },
+        },
+      )
+      .then((req) => {
+        // console.log(req);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
   };
 
   //chỉnh sửa
@@ -375,6 +399,10 @@ function PersonnelDetails() {
               <li>
                 <div className={cx('title')}>Mức đóng BHXH</div>
                 <div className={cx('text')}>{dataStaff.PaymentRateBHXH} VĐN</div>
+              </li>
+              <li>
+                <div className={cx('title')}>Mức trính BHXH</div>
+                <div className={cx('text')}>{dataStaff.ExcerptBHXH} VĐN</div>
               </li>
               <li>
                 <div className={cx('title')}>Ngày báo tăng BHXH</div>

@@ -14,6 +14,8 @@ const cx = classNames.bind(styles);
 function EidtPersonnel() {
   // let navigate = useNavigate();
   //=================================
+  //danh sách ngân hàng
+  const [bankOption, setbankOption] = useState([]);
   //chon cty
   const [CompanyOption, setCompanyOption] = useState([]);
   const [BranchOption, setBranchOption] = useState([]);
@@ -392,75 +394,146 @@ function EidtPersonnel() {
   //cap nhat
   const updateStaff = () => {
     return (e) => {
-      //lấy id nhân viên trên url
-      const url = window.location.pathname.split('/');
-      axios
-        .put(
-          apiUrl + '/v1/updata-staff/' + url[2],
-          {
-            // numberID,
-            numberNV,
-            IssuedbyIDcard1,
-            IDcard1,
-            typeCardID,
-            sexStaff,
-            DateOfBirth,
-            maritalStatus,
-            ethnic,
-            Religion,
-            nameStaff,
-            DateRangeIDcard1,
-            Nationality,
-            phoneNumber,
-            phoneNumber1,
-            email,
-            addressResident,
-            addressstaying,
-            Company,
-            companyBranch,
-            department,
-            group,
-            titleStaff,
-            vacationDay,
-            vacationDayUse,
-            DateStartTestWork,
-            DateStartWork,
-            RetirementDay,
-            Working,
-            statusWorking,
-            TaxCode,
-            CodeBHXH,
-            // familyCircumstances,
-            BankNameAccount,
-            BankNameUserAccount,
-            BankNumberAccount,
-            BasicSalary,
-            PaymentRateBHXH,
-            RisingDayBHXH,
-            ReducedDayBHXH,
-            AcademicLevel,
-            Classification,
-            TrainingPlaces,
-            SpecializedTraining,
-            // UrlAccount,
-          },
-          {
-            headers: {
-              token: cookieValue(),
-            },
-          },
-        )
-        .then((req) => {
-          // console.log(req.data.message);
-          pupsuccess(req.data.message);
-          // navigate('/personnel');
-        })
-        .catch((error) => {
-          // console.log(error.response.data.message);
-          pupwarn(error.response.data.message);
-        });
+      in_hoa_ten();
     };
   };
+
+  const in_hoa_ten = () => {
+    const array = [];
+    const tach = nameStaff.split(' ');
+    for (let i = 0; i < tach.length + 1; i++) {
+      if (i < tach.length) {
+        const capitalizedStr = tach[i].charAt(0).toUpperCase() + tach[i].slice(1);
+        array.push(capitalizedStr);
+      } else if (i === tach.length) {
+        const string = array.join(' ');
+        in_hoa_bo_day_NH(string, string);
+      }
+    }
+  };
+
+  const in_hoa_bo_day_NH = (str, Name) => {
+    var AccentsMap = [
+      'aàảãáạăằẳẵắặâầẩẫấậ',
+      'AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ',
+      'dđ',
+      'DĐ',
+      'eèẻẽéẹêềểễếệ',
+      'EÈẺẼÉẸÊỀỂỄẾỆ',
+      'iìỉĩíị',
+      'IÌỈĨÍỊ',
+      'oòỏõóọôồổỗốộơờởỡớợ',
+      'OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ',
+      'uùủũúụưừửữứự',
+      'UÙỦŨÚỤƯỪỬỮỨỰ',
+      'yỳỷỹýỵ',
+      'YỲỶỸÝỴ',
+    ];
+    for (var i = 0; i <= 15; i++) {
+      if (i < 14) {
+        var re = new RegExp('[' + AccentsMap[i].substr(1) + ']', 'g');
+        var char = AccentsMap[i][0];
+        str = str.replace(re, char);
+      } else if (i === 15) {
+        // save(Name, str);
+        save(str.toUpperCase(), Name);
+      }
+    }
+  };
+
+  const save = (NameTKNH, Name) => {
+    //lấy id nhân viên trên url
+    const url = window.location.pathname.split('/');
+    axios
+      .put(
+        apiUrl + '/v1/updata-staff/' + url[2],
+        {
+          // numberID,
+          numberNV,
+          IssuedbyIDcard1,
+          IDcard1,
+          typeCardID,
+          sexStaff,
+          DateOfBirth,
+          maritalStatus,
+          ethnic,
+          Religion,
+          nameStaff: Name,
+          DateRangeIDcard1,
+          Nationality,
+          phoneNumber,
+          phoneNumber1,
+          email,
+          addressResident,
+          addressstaying,
+          Company,
+          companyBranch,
+          department,
+          group,
+          titleStaff,
+          vacationDay,
+          vacationDayUse,
+          DateStartTestWork,
+          DateStartWork,
+          RetirementDay,
+          Working,
+          statusWorking,
+          TaxCode,
+          CodeBHXH,
+          // familyCircumstances,
+          BankNameAccount,
+          BankNameUserAccount: NameTKNH,
+          BankNumberAccount,
+          BasicSalary,
+          PaymentRateBHXH,
+          RisingDayBHXH,
+          ReducedDayBHXH,
+          AcademicLevel,
+          Classification,
+          TrainingPlaces,
+          SpecializedTraining,
+          // UrlAccount,
+        },
+        {
+          headers: {
+            token: cookieValue(),
+          },
+        },
+      )
+      .then((req) => {
+        // console.log(req.data.message);
+        pupsuccess(req.data.message);
+        // navigate('/personnel');
+      })
+      .catch((error) => {
+        // console.log(error.response.data.message);
+        pupwarn(error.response.data.message);
+      });
+  };
+  //=============================================
+  //lấy danh sách ngân hàng
+  useEffect(() => {
+    axios
+      .get(apiUrl + '/v1/get-all-bank', {
+        headers: {
+          token: cookieValue(),
+        },
+      })
+      .then((req) => {
+        setbankOption(req.data.dataBank.data);
+      })
+      .catch((error) => {});
+  }, []);
+
+  //hiển thị danh sách
+  const selectBank = bankOption.map((data) => {
+    return (
+      <option key={data.code} value={data.shortName}>
+        {data.shortName}
+      </option>
+    );
+  });
+  //=============================================
 
   return (
     <div className={cx('wrapper')}>
@@ -489,6 +562,26 @@ function EidtPersonnel() {
           <h4>Thông tin cá nhân</h4>
         </div>
         <div className={cx('container-infor-main')}>
+          <div className={cx('container-infor')}>
+            <label>STT</label>
+            <input
+              type="number"
+              disabled
+              className={cx('container-infor-ch')}
+              placeholder="Số thứ tự nhân viên được cấp tự động"
+              value={numberID}
+            ></input>
+          </div>
+          <div className={cx('container-infor')}>
+            <label>Mã nhân viên</label>
+            <input
+              disabled
+              type="text"
+              className={cx('container-infor-ch')}
+              onChange={(e) => setnumberNV(e.target.value)}
+              value={numberNV}
+            />
+          </div>
           <div className={cx('container-infor')}>
             <label>Họ và tên</label>
             <input
@@ -555,6 +648,15 @@ function EidtPersonnel() {
               value={IssuedbyIDcard1}
             />
           </div>
+          <div className={cx('container-infor')}>
+            <label>SĐT1</label>
+            <input
+              type="number"
+              className={cx('container-infor-ch')}
+              onChange={(e) => setphoneNumber(e.target.value.replace('.', ''))}
+              value={phoneNumber}
+            />
+          </div>
         </div>
         {/* ========== */}
         <div className={cx('title-infor')}>
@@ -614,25 +716,6 @@ function EidtPersonnel() {
           <h4>Thông tin công việc và vị trí</h4>
         </div>
         <div className={cx('container-infor-main')}>
-          <div className={cx('container-infor')}>
-            <label>STT</label>
-            <input
-              type="number"
-              disabled
-              className={cx('container-infor-ch')}
-              placeholder="Số thứ tự nhân viên được cấp tự động"
-              value={numberID}
-            ></input>
-          </div>
-          <div className={cx('container-infor')}>
-            <label>Mã nhân viên</label>
-            <input
-              type="text"
-              className={cx('container-infor-ch')}
-              onChange={(e) => setnumberNV(e.target.value)}
-              value={numberNV}
-            />
-          </div>
           <div className={cx('container-infor')}>
             <label>Ngày thử việc</label>
             <input
@@ -716,16 +799,7 @@ function EidtPersonnel() {
               value={email}
             />
           </div>
-          <div className={cx('container-infor')}>
-            <label>SĐT1</label>
-            <input
-              type="number"
-              className={cx('container-infor-ch')}
-              onChange={(e) => setphoneNumber(e.target.value.replace('.', ''))}
-              value={phoneNumber}
-            />
-          </div>
-          <div className={cx('container-infor')}>
+          {/* <div className={cx('container-infor')}>
             <label>SĐT2</label>
             <input
               type="number"
@@ -733,7 +807,7 @@ function EidtPersonnel() {
               onChange={(e) => setphoneNumber1(e.target.value.replace('.', ''))}
               value={phoneNumber1}
             />
-          </div>
+          </div> */}
           <div className={cx('container-infor')}>
             <label>Địa chỉ thường trú</label>
             <input
@@ -788,6 +862,7 @@ function EidtPersonnel() {
           <div className={cx('container-infor')}>
             <label>Tên tài khoản</label>
             <input
+              disabled
               type="text"
               className={cx('container-infor-ch')}
               onChange={(e) => setBankNameUserAccount(e.target.value)}
@@ -796,12 +871,14 @@ function EidtPersonnel() {
           </div>
           <div className={cx('container-infor')}>
             <label>Tên ngân hàng</label>
-            <input
-              type="text"
-              className={cx('container-infor-ch')}
+            <select
+              className={cx('select-filters-ch')}
               onChange={(e) => setBankNameAccount(e.target.value)}
               value={BankNameAccount}
-            />
+            >
+              <option value="">Vui lòng chọn</option>
+              {selectBank}
+            </select>
           </div>
           <div className={cx('container-infor')}>
             <label>Lương cơ bản</label>

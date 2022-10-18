@@ -20,6 +20,10 @@ const AddPersonnel = () => {
   const [GroupOption, setGroupOption] = useState([]);
   //chức danh
   const [dataTitleStaff, setdataTitleStaff] = useState([]);
+  //danh sách ngân hàng
+  const [bankOption, setbankOption] = useState([]);
+  //thông tin sau khi chỉnh lại
+  const [nameStaffFormat, setnameStaffFormat] = useState('');
 
   //thong bao
   const pupwarn = (message) =>
@@ -60,7 +64,7 @@ const AddPersonnel = () => {
   //Tôn giáo
   const [Religion, setReligion] = useState('');
   //Họ và tên
-  const [nameStaff, setnameStaff] = useState('');
+  // const [nameStaff, setnameStaff] = useState('');
   //CCCD
   const [IDcard1, setIDcard1] = useState('');
   //Ngày cấp CCCD
@@ -72,7 +76,7 @@ const AddPersonnel = () => {
   //Số ĐT 1
   const [phoneNumber, setphoneNumber] = useState('');
   //Số ĐT 2
-  const [phoneNumber1, setphoneNumber1] = useState('');
+  // const [phoneNumber1, setphoneNumber1] = useState('');
   //Email
   const [email, setemail] = useState('');
   //địa chỉ thường trú
@@ -113,7 +117,7 @@ const AddPersonnel = () => {
   //tên ngân hàng
   const [BankNameAccount, setBankNameAccount] = useState('');
   //Tên TK ngân hàng
-  const [BankNameUserAccount, setBankNameUserAccount] = useState('');
+  // const [BankNameUserAccount, setBankNameUserAccount] = useState('');
   //số TK ngân hàng
   const [BankNumberAccount, setBankNumberAccount] = useState('');
   //Lương cơ bản
@@ -134,7 +138,7 @@ const AddPersonnel = () => {
   const [SpecializedTraining, setSpecializedTraining] = useState('');
   //URL ảnh
   // const [UrlAccount, setUrlAccount] = useState('');
-  //===========
+  //=======================================
   //sel country
   const listCountry = country.map((data) => (
     <option key={data.code} value={data.code}>
@@ -145,72 +149,123 @@ const AddPersonnel = () => {
   //tạo mới nhân viên
   const createStaff = () => {
     return (e) => {
-      axios
-        .post(
-          apiUrl + '/v1/create-staff',
-          {
-            // numberID,
-            numberNV,
-            IssuedbyIDcard1,
-            IDcard1,
-            typeCardID,
-            sexStaff,
-            DateOfBirth,
-            maritalStatus,
-            ethnic,
-            Religion,
-            nameStaff,
-            DateRangeIDcard1,
-            Nationality,
-            phoneNumber,
-            phoneNumber1,
-            email,
-            addressResident,
-            addressstaying,
-            Company,
-            companyBranch,
-            department,
-            group,
-            titleStaff,
-            vacationDay,
-            vacationDayUse,
-            DateStartTestWork,
-            DateStartWork,
-            RetirementDay,
-            Working,
-            statusWorking,
-            TaxCode,
-            CodeBHXH,
-            // familyCircumstances,
-            BankNameAccount,
-            BankNameUserAccount,
-            BankNumberAccount,
-            BasicSalary,
-            PaymentRateBHXH,
-            RisingDayBHXH,
-            ReducedDayBHXH,
-            AcademicLevel,
-            Classification,
-            TrainingPlaces,
-            SpecializedTraining,
-            // UrlAccount,
-          },
-          {
-            headers: {
-              token: cookieValue(),
-            },
-          },
-        )
-        .then((req) => {
-          // console.log(req.data.message);
-          pupsuccess(req.data.message);
-        })
-        .catch((error) => {
-          // console.log(error.response.data.message);
-          pupwarn(error.response.data.message);
-        });
+      in_hoa_ten();
     };
   };
+
+  const in_hoa_ten = () => {
+    const array = [];
+    const tach = nameStaffFormat.split(' ');
+    for (let i = 0; i < tach.length + 1; i++) {
+      if (i < tach.length) {
+        const capitalizedStr = tach[i].charAt(0).toUpperCase() + tach[i].slice(1);
+        array.push(capitalizedStr);
+      } else if (i === tach.length) {
+        const string = array.join(' ');
+        in_hoa_bo_day_NH(string, string);
+      }
+    }
+  };
+
+  const in_hoa_bo_day_NH = (str, Name) => {
+    var AccentsMap = [
+      'aàảãáạăằẳẵắặâầẩẫấậ',
+      'AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ',
+      'dđ',
+      'DĐ',
+      'eèẻẽéẹêềểễếệ',
+      'EÈẺẼÉẸÊỀỂỄẾỆ',
+      'iìỉĩíị',
+      'IÌỈĨÍỊ',
+      'oòỏõóọôồổỗốộơờởỡớợ',
+      'OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ',
+      'uùủũúụưừửữứự',
+      'UÙỦŨÚỤƯỪỬỮỨỰ',
+      'yỳỷỹýỵ',
+      'YỲỶỸÝỴ',
+    ];
+    for (var i = 0; i <= 15; i++) {
+      if (i < 14) {
+        var re = new RegExp('[' + AccentsMap[i].substr(1) + ']', 'g');
+        var char = AccentsMap[i][0];
+        str = str.replace(re, char);
+      } else if (i === 15) {
+        // save(Name, str);
+        save(str.toUpperCase(), Name);
+      }
+    }
+  };
+
+  //luu
+  const save = (NameTKNH, Name) => {
+    //luu
+    axios
+      .post(
+        apiUrl + '/v1/create-staff',
+        {
+          // numberID,
+          numberNV,
+          IssuedbyIDcard1,
+          IDcard1,
+          typeCardID,
+          sexStaff,
+          DateOfBirth,
+          maritalStatus,
+          ethnic,
+          Religion,
+          nameStaff: Name,
+          DateRangeIDcard1,
+          Nationality,
+          phoneNumber,
+          // phoneNumber1,
+          email,
+          addressResident,
+          addressstaying,
+          Company,
+          companyBranch,
+          department,
+          group,
+          titleStaff,
+          vacationDay,
+          vacationDayUse,
+          DateStartTestWork,
+          DateStartWork,
+          RetirementDay,
+          Working,
+          statusWorking,
+          TaxCode,
+          CodeBHXH,
+          // familyCircumstances,
+          BankNameAccount,
+          BankNameUserAccount: NameTKNH,
+          BankNumberAccount,
+          BasicSalary,
+          PaymentRateBHXH,
+          RisingDayBHXH,
+          ReducedDayBHXH,
+          AcademicLevel,
+          Classification,
+          TrainingPlaces,
+          SpecializedTraining,
+          // UrlAccount,
+        },
+        {
+          headers: {
+            token: cookieValue(),
+          },
+        },
+      )
+      .then(async (req) => {
+        // console.log(req.data.message);
+        //hiện thông báo
+        pupsuccess(req.data.message);
+      })
+      .catch((error) => {
+        // console.log(error.response.data.message);
+        pupwarn(error.response.data.message);
+      });
+  };
+  //=======================================
   //lấy danh sách cty
   useEffect(() => {
     axios
@@ -307,7 +362,7 @@ const AddPersonnel = () => {
   //list company
   const selectCompany = CompanyOption.map((data) => {
     return (
-      <option key={data._id} value={data._id}>
+      <option key={data._id} value={data.Company}>
         {data.Company}
       </option>
     );
@@ -316,7 +371,7 @@ const AddPersonnel = () => {
   //danh sách select chi nhánh
   const selectBranch = BranchOption.map((data) => {
     return (
-      <option key={data._id} value={data._id}>
+      <option key={data._id} value={data.companyBranch}>
         {data.companyBranch}
       </option>
     );
@@ -325,7 +380,7 @@ const AddPersonnel = () => {
   //danh sách select phòng ban
   const selectDepartment = DepartmentOption.map((data) => {
     return (
-      <option key={data._id} value={data._id}>
+      <option key={data._id} value={data.department}>
         {data.department}
       </option>
     );
@@ -334,11 +389,36 @@ const AddPersonnel = () => {
   //danh sách select nhóm
   const selectGroup = GroupOption.map((data) => {
     return (
-      <option key={data._id} value={data._id}>
+      <option key={data._id} value={data.group}>
         {data.group}
       </option>
     );
   });
+  //=======================================
+  //lấy danh sách ngân hàng
+  useEffect(() => {
+    axios
+      .get(apiUrl + '/v1/get-all-bank', {
+        headers: {
+          token: cookieValue(),
+        },
+      })
+      .then((req) => {
+        setbankOption(req.data.dataBank.data);
+      })
+      .catch((error) => {});
+  }, []);
+
+  //hiển thị danh sách
+  const selectBank = bankOption.map((data) => {
+    return (
+      <option key={data.code} value={data.shortName}>
+        {data.shortName}
+      </option>
+    );
+  });
+
+  //========================================
 
   return (
     <div className={cx('wrapper')}>
@@ -364,8 +444,16 @@ const AddPersonnel = () => {
         </div>
         <div className={cx('container-infor-main')}>
           <div className={cx('container-infor')}>
+            <label>Mã nhân viên</label>
+            <input type="text" className={cx('container-infor-ch')} onChange={(e) => setnumberNV(e.target.value)} />
+          </div>
+          <div className={cx('container-infor')}>
             <label>Họ và tên</label>
-            <input type="text" className={cx('container-infor-ch')} onChange={(e) => setnameStaff(e.target.value)} />
+            <input
+              type="text"
+              className={cx('container-infor-ch')}
+              onChange={(e) => setnameStaffFormat(e.target.value)}
+            />
           </div>
           <div className={cx('container-infor')}>
             <label>Ngày sinh</label>
@@ -410,6 +498,14 @@ const AddPersonnel = () => {
               type="text"
               className={cx('container-infor-ch')}
               onChange={(e) => setIssuedbyIDcard1(e.target.value)}
+            />
+          </div>
+          <div className={cx('container-infor')}>
+            <label>SĐT1</label>
+            <input
+              type="number"
+              className={cx('container-infor-ch')}
+              onChange={(e) => setphoneNumber(e.target.value.replace('.', ''))}
             />
           </div>
         </div>
@@ -459,7 +555,7 @@ const AddPersonnel = () => {
           <h4>Thông tin công việc và vị trí</h4>
         </div>
         <div className={cx('container-infor-main')}>
-          <div className={cx('container-infor')}>
+          {/* <div className={cx('container-infor')}>
             <label>STT</label>
             <input
               type="number"
@@ -467,11 +563,7 @@ const AddPersonnel = () => {
               className={cx('container-infor-ch')}
               placeholder="Số thứ tự nhân viên được cấp tự động"
             ></input>
-          </div>
-          <div className={cx('container-infor')}>
-            <label>Mã nhân viên</label>
-            <input type="text" className={cx('container-infor-ch')} onChange={(e) => setnumberNV(e.target.value)} />
-          </div>
+          </div> */}
           <div className={cx('container-infor')}>
             <label>Ngày thử việc</label>
             <input
@@ -541,22 +633,14 @@ const AddPersonnel = () => {
             <label>Email</label>
             <input type="email" className={cx('container-infor-ch')} onChange={(e) => setemail(e.target.value)} />
           </div>
-          <div className={cx('container-infor')}>
-            <label>SĐT1</label>
-            <input
-              type="number"
-              className={cx('container-infor-ch')}
-              onChange={(e) => setphoneNumber(e.target.value.replace('.', ''))}
-            />
-          </div>
-          <div className={cx('container-infor')}>
+          {/* <div className={cx('container-infor')}>
             <label>SĐT2</label>
             <input
               type="number"
               className={cx('container-infor-ch')}
               onChange={(e) => setphoneNumber1(e.target.value.replace('.', ''))}
             />
-          </div>
+          </div> */}
           <div className={cx('container-infor')}>
             <label>Địa chỉ thường trú</label>
             <input
@@ -603,21 +687,28 @@ const AddPersonnel = () => {
               onChange={(e) => setBankNumberAccount(e.target.value.replace('.', ''))}
             />
           </div>
-          <div className={cx('container-infor')}>
+          {/* <div className={cx('container-infor')}>
             <label>Tên tài khoản</label>
             <input
               type="text"
               className={cx('container-infor-ch')}
               onChange={(e) => setBankNameUserAccount(e.target.value)}
             />
-          </div>
-          <div className={cx('container-infor')}>
+          </div> */}
+          {/* <div className={cx('container-infor')}>
             <label>Tên ngân hàng</label>
             <input
               type="text"
               className={cx('container-infor-ch')}
               onChange={(e) => setBankNameAccount(e.target.value)}
             />
+          </div> */}
+          <div className={cx('container-infor')}>
+            <label>Tên ngân hàng</label>
+            <select className={cx('select-filters-ch')} onChange={(e) => setBankNameAccount(e.target.value)}>
+              <option value="">Vui lòng chọn</option>
+              {selectBank}
+            </select>
           </div>
           <div className={cx('container-infor')}>
             <label>Lương cơ bản</label>
@@ -661,7 +752,7 @@ const AddPersonnel = () => {
             <label>Tình trạng hôn nhân</label>
             <select className={cx('select-filters-ch')} onChange={(e) => setmaritalStatus(e.target.value)}>
               <option value="">Vui lòng chọn</option>
-              <option value="Độc thânh">Độc thânh</option>
+              <option value="Độc thânh">Độc thân</option>
               <option value="Đã kết hôn">Đã kết hôn</option>
               <option value="Li thân">Li thân</option>
             </select>

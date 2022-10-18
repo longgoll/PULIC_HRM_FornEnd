@@ -2,5 +2,89 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  min-height: 1000px;
+}
+
+.container1 {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 10px;
+  column-gap: 20px;
+  row-gap: 20px;
+  width: 100%;
+}
+
+.container1-1,
+.container1-2,
+.container1-3,
+.container1-4,
+.container1-5,
+.container1-6 {
+  box-shadow: 5px 4px 24px 5px rgb(34 41 47 / 10%);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.container-conten {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.b-avatar-custom {
+  position: relative;
+
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}
+
+.color-avatar-custom1 {
+  background: #eeedfd;
+}
+
+.color-avatar-custom2 {
+  background: #e5f8ed;
+}
+
+.color-avatar-custom3 {
+  background: #e0f9fc;
+}
+
+.color-avatar-custom4 {
+  background: #fceaea;
+}
+
+.icon {
+  font-size: 25px;
+  position: absolute;
+  left: 7px;
+  top: 5px;
+}
+
+.icon-01 {
+  color: #4d3aec;
+}
+.icon-02 {
+  color: #00c465;
+}
+.icon-03 {
+  color: #00cbe6;
+}
+.icon-04 {
+  color: #e83436;
+}
+
+.title-number {
+  font-size: 30px;
+  color: #5e5873;
+  margin-left: 10px;
+}
+
+.container1-5,
+.container1-6 {
+  cursor: pointer;
 }

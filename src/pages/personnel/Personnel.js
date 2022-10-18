@@ -215,7 +215,8 @@ function Personnel() {
   //chuyển trang sang chi tiết nhân viên
   const nextDetailPersonnel = (ID) => {
     return (e) => {
-      navigate('/personnel-details/' + ID);
+      // navigate('/personnel-details/' + ID);
+      window.open('/personnel-details/' + ID);
     };
   };
 

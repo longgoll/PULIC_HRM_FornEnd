@@ -1,0 +1,115 @@
+.table-personnel {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  min-width: 1200px;
+
+  th {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #f3f2f7;
+    color: #6e6b7b;
+  }
+
+  .container-sort-th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon-up {
+      width: 20px;
+      height: 20px;
+      color: blue;
+    }
+
+    .icon-dow {
+      width: 20px;
+      height: 20px;
+      color: red;
+    }
+  }
+
+  td {
+    padding: 15px 0;
+    border-bottom: 1px solid #cfced3;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 100%;
+    }
+  }
+
+  .click-td {
+    cursor: pointer;
+  }
+
+  .table-hd {
+    .ct {
+      font-size: 1.4rem;
+      border-radius: 50px;
+      padding: 4px 10px;
+      background-color: rgba(45, 138, 252, 0.12);
+      color: rgb(45, 138, 252) !important;
+    }
+
+    .thuv {
+      font-size: 1.4rem;
+      border-radius: 50px;
+      padding: 4px 10px;
+      background-color: rgba(255, 159, 67, 0.12);
+      color: rgb(255, 159, 67) !important;
+    }
+
+    .thoiv {
+      font-size: 1.4rem;
+      border-radius: 50px;
+      padding: 4px 10px;
+      background-color: rgba(130, 134, 139, 0.12);
+      color: rgb(130, 134, 139) !important;
+    }
+  }
+
+  .table-tt {
+    .dl {
+      font-size: 1.4rem;
+      border-radius: 50px;
+      padding: 4px 10px;
+      color: rgb(40, 199, 111) !important;
+      background-color: rgba(40, 199, 111, 0.12);
+    }
+
+    .nl {
+      font-size: 1.4rem;
+      border-radius: 50px;
+      padding: 4px 10px;
+      color: #82868b !important;
+      background-color: rgba(130, 134, 139, 0.12);
+    }
+    .dtd {
+      font-size: 1.4rem;
+      border-radius: 50px;
+      padding: 4px 10px;
+      color: rgb(102, 171, 255) !important;
+      background-color: rgba(102, 171, 255, 0.12);
+    }
+    .ts {
+      font-size: 1.4rem;
+      border-radius: 50px;
+      padding: 4px 10px;
+      color: rgb(83, 47, 245) !important;
+      background-color: rgba(83, 47, 245, 0.12);
+    }
+  }
+
+  .acctions {
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

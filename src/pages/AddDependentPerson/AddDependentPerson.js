@@ -85,6 +85,7 @@ const AddDependentPerson = () => {
   //tạo người phụ thuộc
   const create = () => {
     return (e) => {
+      //tạo mới người phụ thuộc
       axios
         .post(
           apiUrl + '/v1/create-dependent-person',
@@ -124,12 +125,35 @@ const AddDependentPerson = () => {
           setRelationshipWithTaxpayers('');
           setFromMonth('');
           setToTheMonth('');
+          cong_NPT();
         })
         .catch((error) => {
           // console.log(error);
           pupwarn(error.response.data.message);
         });
     };
+  };
+
+  const cong_NPT = () => {
+    //cộng người phụ thuộc
+    //lấy id nhân viên trên url
+    const url = window.location.pathname.split('/');
+    axios
+      .post(
+        apiUrl + '/v1/sum-dependent/' + url[2],
+        {},
+        {
+          headers: {
+            token: cookieValue(),
+          },
+        },
+      )
+      .then((req) => {
+        // console.log(req);
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
   };
 
   //================================
