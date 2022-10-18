@@ -62,6 +62,17 @@ function Personnel() {
       draggable: true,
       progress: undefined,
     });
+
+  const pupwarn = (message) =>
+    toast.warn(message, {
+      position: 'bottom-left',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   //menu nut actions
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -96,7 +107,7 @@ function Personnel() {
         pupsuccess(req.data.message);
       })
       .catch((error) => {
-        // console.log(error);
+        pupwarn(error.response.data.message);
       });
   };
 

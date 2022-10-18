@@ -6,12 +6,17 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { apiUrl, cookieValue } from '../../../../contexts/contexts';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+  //
   const [anchorEl, setAnchorEl] = useState(null);
+  const [data, setdata] = useState([]);
+  //
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,14 +24,47 @@ function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  //=======================
+  useEffect(() => {
+    axios
+      .get(apiUrl + '/v1/role', {
+        headers: {
+          token: cookieValue(),
+        },
+      })
+      .then((req) => {
+        // console.log(req);
+        getInfo(req.data.UserID);
+      });
+    const getInfo = (ID) => {
+      //=======================
+      axios
+        .get(apiUrl + '/v1/get-user/' + ID, {
+          headers: {
+            token: cookieValue(),
+          },
+        })
+        .then((req) => {
+          setdata(req.data.data);
+        });
+    };
+  }, []);
+
+  //========================
+  //========================
+  ////click logout
+  const logout = () => {
+    document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    window.location.reload();
+  };
 
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
         <div className={cx('container-infor')}>
           <div className={cx('container-name')}>
-            <p className={cx('p1')}>Hoang Long</p>
-            <p className={cx('p2')}>admin</p>
+            <p className={cx('p1')}>{data.Name}</p>
+            <p className={cx('p2')}>{data.role}</p>
           </div>
           <img
             onClick={handleClick}
@@ -63,7 +101,7 @@ function Header() {
               </ListItemIcon>
               Settings
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={logout}>
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>

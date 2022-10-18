@@ -63,7 +63,22 @@ const Company = () => {
       draggable: true,
       progress: undefined,
     });
-
+  //================================
+  //role
+  const [role, setrole] = useState('');
+  useEffect(() => {
+    axios
+      .get(apiUrl + '/v1/role', {
+        headers: {
+          token: cookieValue(),
+        },
+      })
+      .then((req) => {
+        // console.log(req);
+        setrole(req.data.role);
+      });
+  }, []);
+  //================================
   //chọn tạo mới các thông tin cty
   const createCT = (num) => {
     return (e) => {
@@ -756,277 +771,320 @@ const Company = () => {
         </div>
       </div> */}
       {/* ========== */}
-      <div className={cx('main2')}>
-        <div className={cx('content')}>
-          <h3>Thêm mới</h3>
-          <div className={cx('container-btn-2')}>
-            <button onClick={createCT(1)} className={cx('btn-create-ct')}>
-              Chi nhánh
-            </button>
-            <button onClick={createCT(2)} className={cx('btn-create-ct')}>
-              Phòng ban
-            </button>
-            <button onClick={createCT(3)} className={cx('btn-create-ct')}>
-              Nhóm
-            </button>
-          </div>
-          {changeCreateCt === 1 && (
-            <div>
-              <h3>Thêm chi nhánh</h3>
-              <div className={cx('container-infor')}>
-                <div className={cx('container-filters')}>
-                  <div className={cx('select-filters')}>
-                    <label>Cty thêm chi nhánh</label>
-                    {selectCompany}
-                  </div>
-                  <div className={cx('container-infor')}>
-                    <label>Tên chi nhánh mới</label>
-                    <input
-                      type="text"
-                      className={cx('container-infor-ch')}
-                      onChange={(e) => setNameBranch(e.target.value)}
-                      value={NameBranch}
-                    />
-                  </div>
-                </div>
+      {role === 'Admin' ? (
+        <>
+          <div className={cx('main2')}>
+            <div className={cx('content')}>
+              <h3>Thêm mới</h3>
+              <div className={cx('container-btn-2')}>
+                <button onClick={createCT(1)} className={cx('btn-create-ct')}>
+                  Chi nhánh
+                </button>
+                <button onClick={createCT(2)} className={cx('btn-create-ct')}>
+                  Phòng ban
+                </button>
+                <button onClick={createCT(3)} className={cx('btn-create-ct')}>
+                  Nhóm
+                </button>
+              </div>
+              {changeCreateCt === 1 && (
                 <div>
-                  <button className={cx('btn')} onClick={createBranch()}>
-                    Thêm
+                  <h3>Thêm chi nhánh</h3>
+                  <div className={cx('container-infor')}>
+                    <div className={cx('container-filters')}>
+                      <div className={cx('select-filters')}>
+                        <label>Cty thêm chi nhánh</label>
+                        {selectCompany}
+                      </div>
+                      <div className={cx('container-infor')}>
+                        <label>Tên chi nhánh mới</label>
+                        <input
+                          type="text"
+                          className={cx('container-infor-ch')}
+                          onChange={(e) => setNameBranch(e.target.value)}
+                          value={NameBranch}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <button className={cx('btn')} onClick={createBranch()}>
+                        Thêm
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {changeCreateCt === 2 && (
+                <div>
+                  <h3>Thêm phòng ban</h3>
+                  <div className={cx('container-filters')}>
+                    <div className={cx('select-filters')}>
+                      <label>Cty thêm chi nhánh</label>
+                      {selectCompany}
+                    </div>
+                    <div className={cx('select-filters')}>
+                      <label>Chinh nhánh thêm phòng ban</label>
+                      <select className={cx('select-filters-chi')} onChange={(e) => setgetIDBranch(e.target.value)}>
+                        <option value="">Vui lòng chọn chi nhánh</option>
+                        {selectBranch}
+                      </select>
+                    </div>
+                    <div className={cx('container-infor')}>
+                      <label>Tên phòng ban mới</label>
+                      <input
+                        type="text"
+                        className={cx('container-infor-ch')}
+                        onChange={(e) => setNameDepartment(e.target.value)}
+                        value={NameDepartment}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button className={cx('btn')} onClick={createDepartment()}>
+                      Thêm
+                    </button>
+                  </div>
+                </div>
+              )}
+              {changeCreateCt === 3 && (
+                <div>
+                  <h3>Thêm nhóm</h3>
+                  <div className={cx('container-filters')}>
+                    <div className={cx('select-filters')}>
+                      <label>Cty thêm chi nhánh</label>
+                      {selectCompany}
+                    </div>
+                    <div className={cx('select-filters')}>
+                      <label>Chinh nhánh thêm nhóm</label>
+                      <select className={cx('select-filters-chi')} onChange={(e) => setgetIDBranch(e.target.value)}>
+                        <option value="">Vui lòng chọn chi nhánh</option>
+                        {selectBranch}
+                      </select>
+                    </div>
+                    <div className={cx('select-filters')}>
+                      <label>Phòng ban thêm nhóm</label>
+                      <select className={cx('select-filters-chi')} onChange={(e) => setgetIDDepartment(e.target.value)}>
+                        <option value="">Vui lòng chọn phòng ban</option>
+                        {selectDepartment}
+                      </select>
+                    </div>
+                    <div className={cx('container-infor')}>
+                      <label>Tên nhóm mới</label>
+                      <input
+                        type="text"
+                        className={cx('container-infor-ch')}
+                        onChange={(e) => setNameGroup(e.target.value)}
+                        value={NameGroup}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button className={cx('btn')} onClick={createGroup()}>
+                      Thêm
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          {/* ========== */}
+          <div className={cx('main2')}>
+            <div className={cx('content')}>
+              <h3>Thêm mới chức danh</h3>
+              <div className={cx('content-01')}>
+                <div className={cx('container-infor')}>
+                  <label>Chức danh</label>
+                  <input
+                    type="text"
+                    className={cx('container-infor-ch')}
+                    onChange={(e) => setinputtitleStaff(e.target.value)}
+                  />
+                </div>
+                <button className={cx('btn-create-ct')} onClick={createTitleStaff()}>
+                  Thêm mới
+                </button>
+              </div>
+              <div className={cx('content-02')}>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>STT</th>
+                      <th>Chức danh</th>
+                      <th>Tương tác</th>
+                    </tr>
+                    {tableTitleStaff}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {/* ========== */}
+          <div className={cx('main3')}>
+            <div className={cx('content')}>
+              <div className={cx('container-title-company')}>
+                {changeListCompany !== 1 && (
+                  <button onClick={test()}>
+                    <AiOutlineArrowLeft className={cx('icon')} />
                   </button>
-                </div>
-              </div>
-            </div>
-          )}
-          {changeCreateCt === 2 && (
-            <div>
-              <h3>Thêm phòng ban</h3>
-              <div className={cx('container-filters')}>
-                <div className={cx('select-filters')}>
-                  <label>Cty thêm chi nhánh</label>
-                  {selectCompany}
-                </div>
-                <div className={cx('select-filters')}>
-                  <label>Chinh nhánh thêm phòng ban</label>
-                  <select className={cx('select-filters-chi')} onChange={(e) => setgetIDBranch(e.target.value)}>
-                    <option value="">Vui lòng chọn chi nhánh</option>
-                    {selectBranch}
-                  </select>
-                </div>
-                <div className={cx('container-infor')}>
-                  <label>Tên phòng ban mới</label>
-                  <input
-                    type="text"
-                    className={cx('container-infor-ch')}
-                    onChange={(e) => setNameDepartment(e.target.value)}
-                    value={NameDepartment}
-                  />
-                </div>
-              </div>
-              <div>
-                <button className={cx('btn')} onClick={createDepartment()}>
-                  Thêm
-                </button>
-              </div>
-            </div>
-          )}
-          {changeCreateCt === 3 && (
-            <div>
-              <h3>Thêm nhóm</h3>
-              <div className={cx('container-filters')}>
-                <div className={cx('select-filters')}>
-                  <label>Cty thêm chi nhánh</label>
-                  {selectCompany}
-                </div>
-                <div className={cx('select-filters')}>
-                  <label>Chinh nhánh thêm nhóm</label>
-                  <select className={cx('select-filters-chi')} onChange={(e) => setgetIDBranch(e.target.value)}>
-                    <option value="">Vui lòng chọn chi nhánh</option>
-                    {selectBranch}
-                  </select>
-                </div>
-                <div className={cx('select-filters')}>
-                  <label>Phòng ban thêm nhóm</label>
-                  <select className={cx('select-filters-chi')} onChange={(e) => setgetIDDepartment(e.target.value)}>
-                    <option value="">Vui lòng chọn phòng ban</option>
-                    {selectDepartment}
-                  </select>
-                </div>
-                <div className={cx('container-infor')}>
-                  <label>Tên nhóm mới</label>
-                  <input
-                    type="text"
-                    className={cx('container-infor-ch')}
-                    onChange={(e) => setNameGroup(e.target.value)}
-                    value={NameGroup}
-                  />
-                </div>
-              </div>
-              <div>
-                <button className={cx('btn')} onClick={createGroup()}>
-                  Thêm
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-      {/* ========== */}
-      <div className={cx('main2')}>
-        <div className={cx('content')}>
-          <h3>Thêm mới chức danh</h3>
-          <div className={cx('content-01')}>
-            <div className={cx('container-infor')}>
-              <label>Chức danh</label>
-              <input
-                type="text"
-                className={cx('container-infor-ch')}
-                onChange={(e) => setinputtitleStaff(e.target.value)}
-              />
-            </div>
-            <button className={cx('btn-create-ct')} onClick={createTitleStaff()}>
-              Thêm mới
-            </button>
-          </div>
-          <div className={cx('content-02')}>
-            <table>
-              <tbody>
-                <tr>
-                  <th>STT</th>
-                  <th>Chức danh</th>
-                  <th>Tương tác</th>
-                </tr>
-                {tableTitleStaff}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      {/* ========== */}
-      <div className={cx('main3')}>
-        <div className={cx('content')}>
-          <div className={cx('container-title-company')}>
-            {changeListCompany !== 1 && (
-              <button onClick={test()}>
-                <AiOutlineArrowLeft className={cx('icon')} />
-              </button>
-            )}
+                )}
 
-            <h2>Sơ đồ công ty</h2>
-          </div>
-          {/* ======= */}
-          {/* khong co dữ liệu */}
-          {changeListCompany === 1 && listCompany.length === 0 && <div>Không có dữ liệu</div>}
-          {/* khong co dữ liệu */}
-          {changeListCompany === 1 && listCompany.length !== 0 && listCompany}
-          {/* ======= */}
-          {/* có dữ liệu */}
-          {changeListCompany === 2 && listCompany.length === 0 && <div>Không có dữ liệu</div>}
-          {/* khong co dữ liệu */}
-          {changeListCompany === 2 && listCompany.length !== 0 && listCompanyBranch}
-          {/* ======== */}
-          {/* có dữ liệu */}
-          {changeListCompany === 3 && listDepartment.length === 0 && <div>Không có dữ liệu</div>}
-          {/* khong co dữ liệu */}
-          {changeListCompany === 3 && listDepartment.length !== 0 && listDepartment}
-          {/* ======== */}
-          {/* khong co dữ liệu */}
-          {changeListCompany === 4 && listGroup.length === 0 && <div>Không có dữ liệu</div>}
-          {/* có dữ liệu */}
-          {changeListCompany === 4 && listGroup.length !== 0 && listGroup}
-        </div>
-        {changeUpdateCt === 1 && (
-          <div className={cx('container-update')}>
-            <h3>Cập nhật cty</h3>
-            <div className={cx('container-infor')}>
-              <div className={cx('container-filters')}>
+                <h2>Sơ đồ công ty</h2>
+              </div>
+              {/* ======= */}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 1 && listCompany.length === 0 && <div>Không có dữ liệu</div>}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 1 && listCompany.length !== 0 && listCompany}
+              {/* ======= */}
+              {/* có dữ liệu */}
+              {changeListCompany === 2 && listCompany.length === 0 && <div>Không có dữ liệu</div>}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 2 && listCompany.length !== 0 && listCompanyBranch}
+              {/* ======== */}
+              {/* có dữ liệu */}
+              {changeListCompany === 3 && listDepartment.length === 0 && <div>Không có dữ liệu</div>}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 3 && listDepartment.length !== 0 && listDepartment}
+              {/* ======== */}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 4 && listGroup.length === 0 && <div>Không có dữ liệu</div>}
+              {/* có dữ liệu */}
+              {changeListCompany === 4 && listGroup.length !== 0 && listGroup}
+            </div>
+            {changeUpdateCt === 1 && (
+              <div className={cx('container-update')}>
+                <h3>Cập nhật cty</h3>
                 <div className={cx('container-infor')}>
-                  <label>Tên công ty mới</label>
-                  <input
-                    type="text"
-                    className={cx('container-infor-ch')}
-                    onChange={(e) => setnewName(e.target.value)}
-                    value={newName}
-                  />
+                  <div className={cx('container-filters')}>
+                    <div className={cx('container-infor')}>
+                      <label>Tên công ty mới</label>
+                      <input
+                        type="text"
+                        className={cx('container-infor-ch')}
+                        onChange={(e) => setnewName(e.target.value)}
+                        value={newName}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button className={cx('btn')} onClick={Updata(1)}>
+                      Cập nhật
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div>
-                <button className={cx('btn')} onClick={Updata(1)}>
-                  Cập nhật
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {changeUpdateCt === 2 && (
-          <div className={cx('container-update')}>
-            <h3>Cập nhật cty</h3>
-            <div className={cx('container-infor')}>
-              <div className={cx('container-filters')}>
+            )}
+            {changeUpdateCt === 2 && (
+              <div className={cx('container-update')}>
+                <h3>Cập nhật cty</h3>
                 <div className={cx('container-infor')}>
-                  <label>Tên chi nhánh mới</label>
-                  <input
-                    type="text"
-                    className={cx('container-infor-ch')}
-                    onChange={(e) => setnewName(e.target.value)}
-                    value={newName}
-                  />
+                  <div className={cx('container-filters')}>
+                    <div className={cx('container-infor')}>
+                      <label>Tên chi nhánh mới</label>
+                      <input
+                        type="text"
+                        className={cx('container-infor-ch')}
+                        onChange={(e) => setnewName(e.target.value)}
+                        value={newName}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button className={cx('btn')} onClick={Updata(2)}>
+                      Cập nhật
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div>
-                <button className={cx('btn')} onClick={Updata(2)}>
-                  Cập nhật
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {changeUpdateCt === 3 && (
-          <div className={cx('container-update')}>
-            <h3>Cập nhật cty</h3>
-            <div className={cx('container-infor')}>
-              <div className={cx('container-filters')}>
+            )}
+            {changeUpdateCt === 3 && (
+              <div className={cx('container-update')}>
+                <h3>Cập nhật cty</h3>
                 <div className={cx('container-infor')}>
-                  <label>Tên phòng ban mới</label>
-                  <input
-                    type="text"
-                    className={cx('container-infor-ch')}
-                    onChange={(e) => setnewName(e.target.value)}
-                    value={newName}
-                  />
+                  <div className={cx('container-filters')}>
+                    <div className={cx('container-infor')}>
+                      <label>Tên phòng ban mới</label>
+                      <input
+                        type="text"
+                        className={cx('container-infor-ch')}
+                        onChange={(e) => setnewName(e.target.value)}
+                        value={newName}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button className={cx('btn')} onClick={Updata(3)}>
+                      Cập nhật
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div>
-                <button className={cx('btn')} onClick={Updata(3)}>
-                  Cập nhật
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {changeUpdateCt === 4 && (
-          <div className={cx('container-update')}>
-            <h3>Cập nhật cty</h3>
-            <div className={cx('container-infor')}>
-              <div className={cx('container-filters')}>
+            )}
+            {changeUpdateCt === 4 && (
+              <div className={cx('container-update')}>
+                <h3>Cập nhật cty</h3>
                 <div className={cx('container-infor')}>
-                  <label>Tên nhóm mới</label>
-                  <input
-                    type="text"
-                    className={cx('container-infor-ch')}
-                    onChange={(e) => setnewName(e.target.value)}
-                    value={newName}
-                  />
+                  <div className={cx('container-filters')}>
+                    <div className={cx('container-infor')}>
+                      <label>Tên nhóm mới</label>
+                      <input
+                        type="text"
+                        className={cx('container-infor-ch')}
+                        onChange={(e) => setnewName(e.target.value)}
+                        value={newName}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <button className={cx('btn')} onClick={Updata(4)}>
+                      Cập nhật
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div>
-                <button className={cx('btn')} onClick={Updata(4)}>
-                  Cập nhật
-                </button>
+            )}
+          </div>
+        </>
+      ) : (
+        //==================================================
+        //==================================================
+        <>
+          <div className={cx('main3')}>
+            <div className={cx('content')}>
+              <div className={cx('container-title-company')}>
+                {changeListCompany !== 1 && (
+                  <button onClick={test()}>
+                    <AiOutlineArrowLeft className={cx('icon')} />
+                  </button>
+                )}
+
+                <h2>Sơ đồ công ty</h2>
               </div>
+              {/* ======= */}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 1 && listCompany.length === 0 && <div>Không có dữ liệu</div>}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 1 && listCompany.length !== 0 && listCompany}
+              {/* ======= */}
+              {/* có dữ liệu */}
+              {changeListCompany === 2 && listCompany.length === 0 && <div>Không có dữ liệu</div>}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 2 && listCompany.length !== 0 && listCompanyBranch}
+              {/* ======== */}
+              {/* có dữ liệu */}
+              {changeListCompany === 3 && listDepartment.length === 0 && <div>Không có dữ liệu</div>}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 3 && listDepartment.length !== 0 && listDepartment}
+              {/* ======== */}
+              {/* khong co dữ liệu */}
+              {changeListCompany === 4 && listGroup.length === 0 && <div>Không có dữ liệu</div>}
+              {/* có dữ liệu */}
+              {changeListCompany === 4 && listGroup.length !== 0 && listGroup}
             </div>
           </div>
-        )}
-      </div>
+        </>
+      )}
+
       <ToastContainer
         position="bottom-left"
         autoClose={5000}
