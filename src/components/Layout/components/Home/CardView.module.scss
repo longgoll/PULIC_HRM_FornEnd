@@ -1,0 +1,35 @@
+.item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
+  padding: 20px;
+  width: 350px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(46, 199, 109, 0.8);
+    color: #fff;
+    .icon {
+      color: #fff;
+    }
+
+    .title {
+      color: #fff;
+    }
+  }
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #2b2b2b;
+}
+
+.icon {
+  color: rgba(46, 199, 109);
+  width: 50px;
+  height: 50px;
+}
