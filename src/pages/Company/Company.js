@@ -401,9 +401,10 @@ const Company = () => {
   //danh sách select công ty
   const selectCompany = CompanyOption.map((data) => {
     return (
-      <option key={data._id} value={data.Company}>
-        {data.Company}
-      </option>
+      <select key={data._id} className={cx('select-filters-chi')} onChange={(e) => setgetIDCompany(e.target.value)}>
+        <option value="">Vui lòng chọn Cty</option>
+        <option value={data.Company}>{data.Company}</option>
+      </select>
     );
   });
   //danh sách select chi nhánh
@@ -793,10 +794,7 @@ const Company = () => {
                     <div className={cx('container-filters')}>
                       <div className={cx('select-filters')}>
                         <label>Cty thêm chi nhánh</label>
-                        <select className={cx('select-filters-chi')} onChange={(e) => setgetIDCompany(e.target.value)}>
-                          <option value="">Vui lòng chọn cty</option>
-                          {selectCompany}
-                        </select>
+                        {selectCompany}
                       </div>
                       <div className={cx('container-infor')}>
                         <label>Tên chi nhánh mới</label>
@@ -822,10 +820,7 @@ const Company = () => {
                   <div className={cx('container-filters')}>
                     <div className={cx('select-filters')}>
                       <label>Cty thêm chi nhánh</label>
-                      <select className={cx('select-filters-chi')} onChange={(e) => setgetIDCompany(e.target.value)}>
-                        <option value="">Vui lòng chọn cty</option>
-                        {selectCompany}
-                      </select>
+                      {selectCompany}
                     </div>
                     <div className={cx('select-filters')}>
                       <label>Chinh nhánh thêm phòng ban</label>
@@ -857,10 +852,7 @@ const Company = () => {
                   <div className={cx('container-filters')}>
                     <div className={cx('select-filters')}>
                       <label>Cty thêm chi nhánh</label>
-                      <select className={cx('select-filters-chi')} onChange={(e) => setgetIDCompany(e.target.value)}>
-                        <option value="">Vui lòng chọn cty</option>
-                        {selectCompany}
-                      </select>
+                      {selectCompany}
                     </div>
                     <div className={cx('select-filters')}>
                       <label>Chinh nhánh thêm nhóm</label>

@@ -1,18 +1,19 @@
 import classNames from 'classnames/bind';
 import styles from './Tools.module.scss';
 import * as XLSX from 'xlsx';
+import { useState } from 'react';
 import axios from 'axios';
 import { apiUrl, cookieValue } from '../../contexts/contexts';
 
 const cx = classNames.bind(styles);
 
 const Tool = () => {
-  // //danh sach nhân viên
-  // const [Data, setData] = useState([]);
-  // //danh sách nhân viên tùy chỉnh 01
-  // const [Data2, setData2] = useState([]);
-  // //Người phụ thuộc
-  // const [Data1, setData1] = useState([]);
+  //danh sach nhân viên
+  const [Data, setData] = useState([]);
+  //danh sách nhân viên tùy chỉnh 01
+  const [Data2, setData2] = useState([]);
+  //Người phụ thuộc
+  const [Data1, setData1] = useState([]);
 
   //===============================
   const ex = () => {
@@ -25,12 +26,12 @@ const Tool = () => {
         })
         .then(async (req) => {
           // console.log(req.data.data);
-          // await setData(req.data.data);
+          await setData(req.data.data);
           // console.log(req.data.data);
 
           //
           var wb = XLSX.utils.book_new(),
-            ws = XLSX.utils.json_to_sheet(req.data.data);
+            ws = XLSX.utils.json_to_sheet(Data);
 
           XLSX.utils.book_append_sheet(wb, ws, 'MySheet1');
 
@@ -52,11 +53,11 @@ const Tool = () => {
         })
         .then(async (req) => {
           // console.log(req.data.data);
-          // await setData1(req.data.data);
+          await setData1(req.data.data);
 
           //
           var wb = XLSX.utils.book_new(),
-            ws = XLSX.utils.json_to_sheet(req.data.data);
+            ws = XLSX.utils.json_to_sheet(Data1);
 
           XLSX.utils.book_append_sheet(wb, ws, 'MySheet1');
 
@@ -76,12 +77,12 @@ const Tool = () => {
           },
         })
         .then(async (req) => {
-          // console.log(req.data.data);
-          // await setData2(req.data.data);
+          console.log(req.data.data);
+          await setData2(req.data.data);
 
           //
           var wb = XLSX.utils.book_new(),
-            ws = XLSX.utils.json_to_sheet(req.data.data);
+            ws = XLSX.utils.json_to_sheet(Data2);
 
           XLSX.utils.book_append_sheet(wb, ws, 'MySheet1');
 

@@ -256,9 +256,8 @@ function Personnel() {
         <td className={cx('click-td')}>{data.department}</td>
         <td className={cx('click-td')}>{data.companyBranch}</td>
         <td className={cx('table-hd')}>
-          {data.statusWorking === 'HDLD' && <span className={cx('ct')}>{data.statusWorking}</span>}
-          {data.statusWorking === 'HDDV' && <span className={cx('ct')}>{data.statusWorking}</span>}
-          {data.statusWorking === 'HDTV' && <span className={cx('thuv')}>{data.statusWorking}</span>}
+          {data.statusWorking === 'Chính thức' && <span className={cx('ct')}>{data.statusWorking}</span>}
+          {data.statusWorking === 'Thử việc' && <span className={cx('thuv')}>{data.statusWorking}</span>}
           {data.statusWorking === 'Thôi việc' && <span className={cx('thoiv')}>{data.statusWorking}</span>}
           {/* <span className={cx('ct')}>{data.statusWorking}</span> */}
         </td>

@@ -412,7 +412,7 @@ const AddPersonnel = () => {
   //hiển thị danh sách
   const selectBank = bankOption.map((data) => {
     return (
-      <option key={data.code} value={data.code}>
+      <option key={data.code} value={data.shortName}>
         {data.shortName}
       </option>
     );
@@ -611,17 +611,16 @@ const AddPersonnel = () => {
               <option value="Đang tuyển">Đang tuyển</option>
               <option value="Đang làm">Đang làm</option>
               <option value="Thai sản">Thai sản</option>
-              <option value="Thôi việc">Thôi việc</option>
+              <option value="Thôi việc">Nghỉ làm</option>
             </select>
           </div>
           <div className={cx('container-infor')}>
             <label>Lọai hợp đồng</label>
             <select className={cx('select-filters-ch')} onChange={(e) => setstatusWorking(e.target.value)}>
               <option value="">Vui lòng chọn</option>
-              <option value="HDTV">Thử Việc</option>
-              <option value="HDDV">Dịch vụ</option>
-              <option value="HDLD">Lao động</option>
-              <option value="Thôi việc">Thôi việc</option>
+              <option value="Thử việc">Thử việc</option>
+              <option value="Chính thức">Chính thức</option>
+              <option value="Thôi việc">Nghỉ làm</option>
             </select>
           </div>
         </div>

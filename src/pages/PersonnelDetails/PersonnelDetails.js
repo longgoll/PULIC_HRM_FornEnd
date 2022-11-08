@@ -164,13 +164,7 @@ function PersonnelDetails() {
             </li>
             <li>
               <div className={cx('title')}>Ngày sinh NPT</div>
-              <div className={cx('text')}>
-                {data.DateOfBirthDependentPerson !== undefined ? (
-                  moment(data.DateOfBirthDependentPerson).format('DD/MM/YYYY')
-                ) : (
-                  <div></div>
-                )}
-              </div>
+              <div className={cx('text')}>{moment(data.DateOfBirthDependentPerson).format('DD/MM/YYYY')}</div>
             </li>
             <li>
               <div className={cx('title')}>Loại giấy tờ NPT</div>
@@ -182,13 +176,7 @@ function PersonnelDetails() {
             </li>
             <li>
               <div className={cx('title')}>Ngày cấp NPT</div>
-              <div className={cx('text')}>
-                {data.DateRangeIDcard1DependentPerson !== undefined ? (
-                  moment(data.DateRangeIDcard1DependentPerson).format('DD/MM/YYYY')
-                ) : (
-                  <div></div>
-                )}
-              </div>
+              <div className={cx('text')}>{moment(data.DateRangeIDcard1DependentPerson).format('DD/MM/YYYY')}</div>
             </li>
             <li>
               <div className={cx('title')}>Nơi cấp NPT</div>
@@ -208,15 +196,11 @@ function PersonnelDetails() {
             </li>
             <li>
               <div className={cx('title')}>Từ tháng</div>
-              <div className={cx('text')}>
-                {data.FromMonth !== undefined ? moment(data.FromMonth).format('DD/MM/YYYY') : <div></div>}
-              </div>
+              <div className={cx('text')}>{moment(data.FromMonth).format('DD/MM/YYYY')}</div>
             </li>
             <li>
               <div className={cx('title')}>Tới tháng</div>
-              <div className={cx('text')}>
-                {data.ToTheMonth !== undefined ? moment(data.ToTheMonth).format('DD/MM/YYYY') : <div></div>}
-              </div>
+              <div className={cx('text')}>{moment(data.ToTheMonth).format('DD/MM/YYYY')}</div>
             </li>
           </ul>
         </div>
@@ -262,13 +246,7 @@ function PersonnelDetails() {
               </li>
               <li>
                 <div className={cx('title')}>Ngày sinh</div>
-                <div className={cx('text')}>
-                  {dataStaff.DateOfBirth !== undefined ? (
-                    moment(dataStaff.DateOfBirth).format('DD/MM/YYYY')
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+                <div className={cx('text')}>{moment(dataStaff.DateOfBirth).format('DD/MM/YYYY')}</div>
               </li>
               <li>
                 <div className={cx('title')}>Giới tính</div>
@@ -284,13 +262,7 @@ function PersonnelDetails() {
               </li>
               <li>
                 <div className={cx('title')}>Ngày cấp</div>
-                <div className={cx('text')}>
-                  {dataStaff.DateRangeIDcard1 !== undefined ? (
-                    moment(dataStaff.DateRangeIDcard1).format('DD/MM/YYYY')
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+                <div className={cx('text')}>{moment(dataStaff.DateRangeIDcard1).format('DD/MM/YYYY')}</div>
               </li>
               <li>
                 <div className={cx('title')}>Nơi cấp</div>
@@ -340,23 +312,11 @@ function PersonnelDetails() {
               </li>
               <li>
                 <div className={cx('title')}>Ngày thử việc</div>
-                <div className={cx('text')}>
-                  {dataStaff.DateStartTestWork !== undefined ? (
-                    moment(dataStaff.DateStartTestWork).format('DD/MM/YYYY')
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+                <div className={cx('text')}>{moment(dataStaff.DateStartTestWork).format('DD/MM/YYYY')}</div>
               </li>
               <li>
                 <div className={cx('title')}>Ngày chính thức</div>
-                <div className={cx('text')}>
-                  {dataStaff.DateStartWork !== undefined ? (
-                    moment(dataStaff.DateStartWork).format('DD/MM/YYYY')
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+                <div className={cx('text')}>{moment(dataStaff.DateStartWork).format('DD/MM/YYYY')}</div>
               </li>
               <li>
                 <div className={cx('title')}>Số ngày được nghỉ phép</div>
@@ -368,13 +328,7 @@ function PersonnelDetails() {
               </li>
               <li>
                 <div className={cx('title')}>Ngày nghỉ việc</div>
-                <div className={cx('text')}>
-                  {dataStaff.RetirementDay !== undefined ? (
-                    moment(dataStaff.RetirementDay).format('DD/MM/YYYY')
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+                <div className={cx('text')}>{moment(dataStaff.RetirementDay).format('DD/MM/YYYY')}</div>
               </li>
               <li>
                 <div className={cx('title')}>Loại hợp đồng</div>
@@ -440,35 +394,23 @@ function PersonnelDetails() {
               </li>
               <li>
                 <div className={cx('title')}>Lương cơ bản</div>
-                <div className={cx('text')}>{dataStaff.BasicSalary} VNĐ</div>
+                <div className={cx('text')}>{dataStaff.BasicSalary} VĐN</div>
               </li>
               <li>
                 <div className={cx('title')}>Mức đóng BHXH</div>
-                <div className={cx('text')}>{dataStaff.PaymentRateBHXH} VNĐ</div>
+                <div className={cx('text')}>{dataStaff.PaymentRateBHXH} VĐN</div>
               </li>
               <li>
                 <div className={cx('title')}>Mức trính BHXH</div>
-                <div className={cx('text')}>{dataStaff.ExcerptBHXH} VNĐ</div>
+                <div className={cx('text')}>{dataStaff.ExcerptBHXH} VĐN</div>
               </li>
               <li>
                 <div className={cx('title')}>Ngày báo tăng BHXH</div>
-                <div className={cx('text')}>
-                  {dataStaff.RisingDayBHXH !== undefined ? (
-                    moment(dataStaff.RisingDayBHXH).format('DD/MM/YYYY')
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+                <div className={cx('text')}>{moment(dataStaff.RisingDayBHXH).format('DD/MM/YYYY')}</div>
               </li>
               <li>
                 <div className={cx('title')}>Ngày báo giảm BHXH</div>
-                <div className={cx('text')}>
-                  {dataStaff.ReducedDayBHXH !== undefined ? (
-                    moment(dataStaff.ReducedDayBHXH).format('DD/MM/YYYY')
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
+                <div className={cx('text')}>{moment(dataStaff.ReducedDayBHXH).format('DD/MM/YYYY')}</div>
               </li>
               <li>
                 <div className={cx('title')}>Số người giảm trừ gia cảnh</div>

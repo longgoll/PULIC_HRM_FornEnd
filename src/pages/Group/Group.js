@@ -139,9 +139,10 @@ const Group = () => {
   //danh sách select công ty
   const selectCompany = CompanyOption.map((data) => {
     return (
-      <option key={data._id} value={data.Company}>
-        {data.Company}
-      </option>
+      <select key={data._id} className={cx('select-filters-chi')} onChange={(e) => setgetIDCompany(e.target.value)}>
+        <option value="">Vui lòng chọn Cty</option>
+        <option value={data.Company}>{data.Company}</option>
+      </select>
     );
   });
   //danh sách select chi nhánh
@@ -229,10 +230,7 @@ const Group = () => {
         <div className={cx('container-filters')}>
           <div className={cx('select-filters')}>
             <label>Cty thêm chi nhánh</label>
-            <select className={cx('select-filters-chi')} onChange={(e) => setgetIDCompany(e.target.value)}>
-              <option value="">Vui lòng chọn Cty</option>
-              {selectCompany}
-            </select>
+            {selectCompany}
           </div>
           <div className={cx('select-filters')}>
             <label>Chinh nhánh thêm nhóm</label>
