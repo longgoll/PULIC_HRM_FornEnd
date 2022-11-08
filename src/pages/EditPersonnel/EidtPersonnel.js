@@ -197,13 +197,13 @@ function EidtPersonnel() {
         setemail(dataStaff.email);
         //địa chỉ thường trú
         setaddressResident(dataStaff.addressResident);
-        //địa chỉ tạm trú
+        // //địa chỉ tạm trú
         setaddressstaying(dataStaff.addressstaying);
-        //công ty
+        // //công ty
         setCompany(dataStaff.Company);
-        //Chi nhanh
+        // //Chi nhanh
         setcompanyBranch(dataStaff.companyBranch);
-        //phòng ban
+        // //phòng ban
         setdepartment(dataStaff.department);
         //nhóm
         setgroup(dataStaff.group);
@@ -215,14 +215,14 @@ function EidtPersonnel() {
         setvacationDayUse(dataStaff.vacationDayUse);
         //ngày bắt đầu làm thử
         setDateStartTestWork(dataStaff.DateStartTestWork);
-        //ngày bắt đầu làm chính thức
+        // ngày bắt đầu làm chính thức
         setDateStartWork(dataStaff.DateStartWork);
         //Ngày nghỉ làm
         setRetirementDay(dataStaff.RetirementDay);
         //trạng thái
         //có đang làm không
         setWorking(dataStaff.Working);
-        //loại hợp đồng
+        // loại hợp đồng
         setstatusWorking(dataStaff.statusWorking);
         //Mã số thuế
         setTaxCode(dataStaff.TaxCode);
@@ -252,9 +252,9 @@ function EidtPersonnel() {
         setTrainingPlaces(dataStaff.TrainingPlaces);
         //Chuyên ngành đào tạo
         setSpecializedTraining(dataStaff.SpecializedTraining);
-        //URL ảnh
+        // URL ảnh
         // const [UrlAccount, setUrlAccount] = useState('');
-        //sel country
+        // sel country
       })
       .catch((error) => {});
   }, []);
@@ -295,7 +295,7 @@ function EidtPersonnel() {
         .catch((error) => {});
     }
 
-    if (Company.length > 0 && companyBranch.length > 0) {
+    if (Company.length > 0 && companyBranch !== undefined) {
       //lấy phong ban
       axios
         .post(
@@ -313,7 +313,7 @@ function EidtPersonnel() {
         .catch((error) => {});
     }
 
-    if (Company.length > 0 && companyBranch.length > 0 && department.length > 0) {
+    if (Company.length > 0 && companyBranch !== undefined && department !== undefined) {
       //laays nhom
       axios
         .post(
@@ -373,6 +373,7 @@ function EidtPersonnel() {
   });
 
   //danh sách select phòng ban
+
   const selectDepartment = DepartmentOption.map((data) => {
     return (
       <option key={data._id} value={data.department}>
@@ -528,7 +529,7 @@ function EidtPersonnel() {
   //hiển thị danh sách
   const selectBank = bankOption.map((data) => {
     return (
-      <option key={data.code} value={data.shortName}>
+      <option key={data.code} value={data.code}>
         {data.shortName}
       </option>
     );
@@ -579,7 +580,7 @@ function EidtPersonnel() {
               type="text"
               className={cx('container-infor-ch')}
               onChange={(e) => setnumberNV(e.target.value)}
-              value={numberNV}
+              value={numberNV !== undefined ? numberNV : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -588,7 +589,7 @@ function EidtPersonnel() {
               type="text"
               className={cx('container-infor-ch')}
               onChange={(e) => setnameStaff(e.target.value)}
-              value={nameStaff}
+              value={nameStaff !== undefined ? nameStaff : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -597,12 +598,16 @@ function EidtPersonnel() {
               type="date"
               className={cx('container-infor-ch')}
               onChange={(e) => setDateOfBirth(e.target.value)}
-              value={moment(DateOfBirth).format('YYYY-MM-DD')}
+              value={DateOfBirth !== undefined ? moment(DateOfBirth).format('YYYY-MM-DD') : ''}
             />
           </div>
           <div className={cx('container-infor')}>
             <label>Giới tính</label>
-            <select className={cx('select-filters-ch')} onChange={(e) => setsexStaff(e.target.value)} value={sexStaff}>
+            <select
+              className={cx('select-filters-ch')}
+              onChange={(e) => setsexStaff(e.target.value)}
+              value={sexStaff !== undefined ? sexStaff : ''}
+            >
               <option value="">Vui lòng chọn</option>
               <option value="Nam">Nam</option>
               <option value="Nữ">Nữ</option>
@@ -614,7 +619,7 @@ function EidtPersonnel() {
             <select
               className={cx('select-filters-ch')}
               onChange={(e) => settypeCardID(e.target.value)}
-              value={typeCardID}
+              value={typeCardID !== undefined ? typeCardID : ''}
             >
               <option value="">Vui lòng chọn</option>
               <option value="CMND">CMND</option>
@@ -627,7 +632,7 @@ function EidtPersonnel() {
               type="number"
               className={cx('container-infor-ch')}
               onChange={(e) => setIDcard1(e.target.value.replace('.', ''))}
-              value={IDcard1}
+              value={IDcard1 !== undefined ? IDcard1 : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -636,7 +641,7 @@ function EidtPersonnel() {
               type="date"
               className={cx('container-infor-ch')}
               onChange={(e) => setDateRangeIDcard1(e.target.value)}
-              value={moment(DateRangeIDcard1).format('YYYY-MM-DD')}
+              value={DateRangeIDcard1 !== undefined ? moment(DateRangeIDcard1).format('YYYY-MM-DD') : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -645,7 +650,7 @@ function EidtPersonnel() {
               type="text"
               className={cx('container-infor-ch')}
               onChange={(e) => setIssuedbyIDcard1(e.target.value)}
-              value={IssuedbyIDcard1}
+              value={IssuedbyIDcard1 !== undefined ? IssuedbyIDcard1 : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -654,7 +659,7 @@ function EidtPersonnel() {
               type="number"
               className={cx('container-infor-ch')}
               onChange={(e) => setphoneNumber(e.target.value.replace('.', ''))}
-              value={phoneNumber}
+              value={phoneNumber !== undefined ? phoneNumber : ''}
             />
           </div>
         </div>
@@ -665,7 +670,11 @@ function EidtPersonnel() {
         <div className={cx('container-infor-main')}>
           <div className={cx('container-infor')}>
             <label>Tên công ty</label>
-            <select className={cx('select-filters-ch')} onChange={(e) => setCompany(e.target.value)} value={Company}>
+            <select
+              className={cx('select-filters-ch')}
+              onChange={(e) => setCompany(e.target.value)}
+              value={Company !== undefined ? Company : ''}
+            >
               <option value="">Vui lòng chọn</option>
               {selectCompany}
             </select>
@@ -675,7 +684,7 @@ function EidtPersonnel() {
             <select
               className={cx('select-filters-ch')}
               onChange={(e) => setcompanyBranch(e.target.value)}
-              value={companyBranch}
+              value={companyBranch !== undefined ? companyBranch : ''}
             >
               <option value="">Vui lòng chọn</option>
               {selectBranch}
@@ -686,7 +695,7 @@ function EidtPersonnel() {
             <select
               className={cx('select-filters-ch')}
               onChange={(e) => setdepartment(e.target.value)}
-              value={department}
+              value={department !== undefined ? department : ''}
             >
               <option value="">Vui lòng chọn</option>
               {selectDepartment}
@@ -694,7 +703,11 @@ function EidtPersonnel() {
           </div>
           <div className={cx('container-infor')}>
             <label>Nhóm</label>
-            <select className={cx('select-filters-ch')} onChange={(e) => setgroup(e.target.value)} value={group}>
+            <select
+              className={cx('select-filters-ch')}
+              onChange={(e) => setgroup(e.target.value)}
+              value={group !== undefined ? group : ''}
+            >
               <option value="">Vui lòng chọn</option>
               {selectGroup}
             </select>
@@ -722,7 +735,7 @@ function EidtPersonnel() {
               type="date"
               className={cx('container-infor-ch')}
               onChange={(e) => setDateStartTestWork(e.target.value)}
-              value={moment(DateStartTestWork).format('YYYY-MM-DD')}
+              value={DateStartTestWork !== undefined ? moment(DateStartTestWork).format('YYYY-MM-DD') : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -731,7 +744,7 @@ function EidtPersonnel() {
               type="date"
               className={cx('container-infor-ch')}
               onChange={(e) => setDateStartWork(e.target.value)}
-              value={moment(DateStartWork).format('YYYY-MM-DD')}
+              value={DateStartWork !== undefined ? moment(DateStartWork).format('YYYY-MM-DD') : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -758,7 +771,7 @@ function EidtPersonnel() {
               type="date"
               className={cx('container-infor-ch')}
               onChange={(e) => setRetirementDay(e.target.value)}
-              value={RetirementDay !== null ? moment(RetirementDay).format('YYYY-MM-DD') : ''}
+              value={RetirementDay !== undefined ? moment(RetirementDay).format('YYYY-MM-DD') : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -768,7 +781,7 @@ function EidtPersonnel() {
               <option value="Đang tuyển">Đang tuyển</option>
               <option value="Đang làm">Đang làm</option>
               <option value="Thai sản">Thai sản</option>
-              <option value="Thôi việc">Nghỉ làm</option>
+              <option value="Thôi việc">Thôi việc</option>
             </select>
           </div>
           <div className={cx('container-infor')}>
@@ -779,9 +792,10 @@ function EidtPersonnel() {
               value={statusWorking}
             >
               <option value="">Vui lòng chọn</option>
-              <option value="Thử việc">Thử việc</option>
-              <option value="Chính thức">Chính thức</option>
-              <option value="Thôi việc">Nghỉ làm</option>
+              <option value="HDTV">Thử Việc</option>
+              <option value="HDDV">Dịch vụ</option>
+              <option value="HDLD">Lao động</option>
+              <option value="Thôi việc">Thôi việc</option>
             </select>
           </div>
         </div>
@@ -904,7 +918,7 @@ function EidtPersonnel() {
               type="date"
               className={cx('container-infor-ch')}
               onChange={(e) => setRisingDayBHXH(e.target.value)}
-              value={RisingDayBHXH !== null ? moment(RisingDayBHXH).format('YYYY-MM-DD') : ''}
+              value={RisingDayBHXH !== undefined ? moment(RisingDayBHXH).format('YYYY-MM-DD') : ''}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -913,7 +927,7 @@ function EidtPersonnel() {
               type="date"
               className={cx('container-infor-ch')}
               onChange={(e) => setReducedDayBHXH(e.target.value)}
-              value={ReducedDayBHXH !== null ? moment(ReducedDayBHXH).format('YYYY-MM-DD') : ''}
+              value={ReducedDayBHXH !== undefined ? moment(ReducedDayBHXH).format('YYYY-MM-DD') : ''}
             />
           </div>
         </div>
