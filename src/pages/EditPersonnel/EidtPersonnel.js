@@ -3,7 +3,7 @@ import styles from './EidtPersonnel.module.scss';
 import country from '../../data/country.json';
 //
 import { useEffect, useState } from 'react';
-import { apiUrl, cookieValue } from '../../contexts/contexts';
+import { apiUrl, cookieValue, numberFormat } from '../../contexts/contexts';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
@@ -24,6 +24,13 @@ function EidtPersonnel() {
   //chức danh
   const [dataTitleStaff, setdataTitleStaff] = useState([]);
   //===============================
+  //check list
+  const [clnum1, setclnum1] = useState(false);
+  const [clnum2, setclnum2] = useState(false);
+  const [clnum3, setclnum3] = useState(false);
+  const [clnum4, setclnum4] = useState(false);
+  const [clnum5, setclnum5] = useState(false);
+  const [clnum6, setclnum6] = useState(false);
   // const [dataStaff, setdataStaff] = useState([]);
   //
   //STT
@@ -163,6 +170,12 @@ function EidtPersonnel() {
         const dataStaff = req.data.data;
         // console.log(req.data.data);
         // setdataStaff(req.data.data);
+        setclnum1(dataStaff.checklist1);
+        setclnum2(dataStaff.checklist2);
+        setclnum3(dataStaff.checklist3);
+        setclnum4(dataStaff.checklist4);
+        setclnum5(dataStaff.checklist5);
+        setclnum6(dataStaff.checklist6);
         //STT
         setnumberID(dataStaff.numberID);
         //loại giấy tờ
@@ -400,17 +413,29 @@ function EidtPersonnel() {
   };
 
   const in_hoa_ten = () => {
-    const array = [];
-    const tach = nameStaff.split(' ');
-    for (let i = 0; i < tach.length + 1; i++) {
-      if (i < tach.length) {
-        const capitalizedStr = tach[i].charAt(0).toUpperCase() + tach[i].slice(1);
-        array.push(capitalizedStr);
-      } else if (i === tach.length) {
-        const string = array.join(' ');
-        in_hoa_bo_day_NH(string, string);
-      }
-    }
+    // const array = [];
+    // const tach = nameStaff.split(' ');
+    // for (let i = 0; i < tach.length + 1; i++) {
+    //   if (i < tach.length) {
+    //     const capitalizedStr = tach[i].charAt(0).toUpperCase() + tach[i].slice(1);
+    //     array.push(capitalizedStr);
+    //   } else if (i === tach.length) {
+    //     const string = array.join(' ');
+    //     in_hoa_bo_day_NH(string, string);
+    //   }
+    // }
+    //================================
+    // const name = nameStaff
+    //   .split(' ')
+    //   .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    //   .join(' ');
+    //================================
+    const name = nameStaff
+      .split(' ')
+      .map((word) => word.toUpperCase())
+      .join(' ');
+
+    in_hoa_bo_day_NH(name, name);
   };
 
   const in_hoa_bo_day_NH = (str, Name) => {
@@ -449,6 +474,14 @@ function EidtPersonnel() {
       .put(
         apiUrl + '/v1/updata-staff/' + url[2],
         {
+          _id: url[2],
+          //
+          checklist1: clnum1,
+          checklist2: clnum2,
+          checklist3: clnum3,
+          checklist4: clnum4,
+          checklist5: clnum5,
+          checklist6: clnum6,
           // numberID,
           numberNV,
           IssuedbyIDcard1,
@@ -535,7 +568,6 @@ function EidtPersonnel() {
     );
   });
   //=============================================
-
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container1-1')}>
@@ -611,7 +643,26 @@ function EidtPersonnel() {
               <option value="">Vui lòng chọn</option>
               <option value="Nam">Nam</option>
               <option value="Nữ">Nữ</option>
-              <option value="Khác">Khác</option>
+            </select>
+          </div>
+          <div className={cx('container-infor')}>
+            <label>Dân tộc</label>
+            <input
+              type="text"
+              className={cx('container-infor-ch')}
+              onChange={(e) => setethnic(e.target.value)}
+              value={ethnic}
+            />
+          </div>
+          <div className={cx('container-infor')}>
+            <label>Quốc tịch</label>
+            <select
+              className={cx('select-filters-ch')}
+              onChange={(e) => setNationality(e.target.value)}
+              value={Nationality}
+            >
+              <option value="VN">Việt Nam</option>
+              {listCountry}
             </select>
           </div>
           <div className={cx('container-infor')}>
@@ -653,14 +704,70 @@ function EidtPersonnel() {
               value={IssuedbyIDcard1 !== undefined ? IssuedbyIDcard1 : ''}
             />
           </div>
+        </div>
+        {/*checkbox hồ sơ*/}
+        <div className={cx('container-infor-main')}>
           <div className={cx('container-infor')}>
-            <label>SĐT1</label>
-            <input
-              type="number"
-              className={cx('container-infor-ch')}
-              onChange={(e) => setphoneNumber(e.target.value.replace('.', ''))}
-              value={phoneNumber !== undefined ? phoneNumber : ''}
-            />
+            <label className={cx('container')}>
+              Đơn xin việc
+              <input
+                className={cx('input-checkbox')}
+                type="checkbox"
+                checked={clnum1}
+                onChange={() => setclnum1(!clnum1)}
+              />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Ảnh 3x4
+              <input
+                className={cx('input-checkbox')}
+                type="checkbox"
+                checked={clnum2}
+                onChange={() => setclnum2(!clnum2)}
+              />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Sơ yếu lý lịch
+              <input
+                className={cx('input-checkbox')}
+                type="checkbox"
+                checked={clnum3}
+                onChange={() => setclnum3(!clnum3)}
+              />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Sổ hộ khẩu/Giấy xác nhận nơi cư trú
+              <input
+                className={cx('input-checkbox')}
+                type="checkbox"
+                checked={clnum4}
+                onChange={() => setclnum4(!clnum4)}
+              />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              CMND/CCCD
+              <input
+                className={cx('input-checkbox')}
+                type="checkbox"
+                checked={clnum5}
+                onChange={() => setclnum5(!clnum5)}
+              />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Bảng thông tin ứng viên
+              <input
+                className={cx('input-checkbox')}
+                type="checkbox"
+                checked={clnum6}
+                onChange={() => setclnum6(!clnum6)}
+              />
+              <span className={cx('checkmark')}></span>
+            </label>
           </div>
         </div>
         {/* ========== */}
@@ -778,7 +885,7 @@ function EidtPersonnel() {
             <label>trạng thái</label>
             <select className={cx('select-filters-ch')} onChange={(e) => setWorking(e.target.value)} value={Working}>
               <option value="">Vui lòng chọn</option>
-              <option value="Đang tuyển">Đang tuyển</option>
+              {/* <option value="Đang tuyển">Đang tuyển</option> */}
               <option value="Đang làm">Đang làm</option>
               <option value="Thai sản">Thai sản</option>
               <option value="Thôi việc">Thôi việc</option>
@@ -791,11 +898,10 @@ function EidtPersonnel() {
               onChange={(e) => setstatusWorking(e.target.value)}
               value={statusWorking}
             >
-              <option value="">Vui lòng chọn</option>
-              <option value="HDTV">Thử Việc</option>
-              <option value="HDDV">Dịch vụ</option>
-              <option value="HDLD">Lao động</option>
-              <option value="Thôi việc">Thôi việc</option>
+              <option value="HDTV">Hợp đồng thử Việc</option>
+              <option value="HDDV">Hợp đồng dịch vụ</option>
+              <option value="HDLD">Hợp đồng lao động</option>
+              {/* <option value="Thôi việc">Thôi việc</option> */}
             </select>
           </div>
         </div>
@@ -804,6 +910,15 @@ function EidtPersonnel() {
           <h4>Thông tin liên hệ</h4>
         </div>
         <div className={cx('container-infor-main')}>
+          <div className={cx('container-infor')}>
+            <label>SĐT1</label>
+            <input
+              type="number"
+              className={cx('container-infor-ch')}
+              onChange={(e) => setphoneNumber(e.target.value.replace('.', ''))}
+              value={phoneNumber !== undefined ? phoneNumber : ''}
+            />
+          </div>
           <div className={cx('container-infor')}>
             <label>Email</label>
             <input
@@ -870,7 +985,7 @@ function EidtPersonnel() {
               type="number"
               className={cx('container-infor-ch')}
               onChange={(e) => setBankNumberAccount(e.target.value.replace('.', ''))}
-              value={BankNumberAccount}
+              value={BankNumberAccount.replace(/'/g, '')}
             />
           </div>
           <div className={cx('container-infor')}>
@@ -902,6 +1017,7 @@ function EidtPersonnel() {
               onChange={(e) => setBasicSalary(e.target.value.replace('.', ''))}
               value={BasicSalary}
             />
+            <p>{numberFormat.format(BasicSalary)}</p>
           </div>
           <div className={cx('container-infor')}>
             <label>Mức đóng BHXH</label>
@@ -911,6 +1027,7 @@ function EidtPersonnel() {
               onChange={(e) => setPaymentRateBHXH(e.target.value.replace('.', ''))}
               value={PaymentRateBHXH}
             />
+            <p>{numberFormat.format(PaymentRateBHXH)}</p>
           </div>
           <div className={cx('container-infor')}>
             <label>Ngày báo tăng BHXH</label>
@@ -950,15 +1067,6 @@ function EidtPersonnel() {
             </select>
           </div>
           <div className={cx('container-infor')}>
-            <label>Dân tộc</label>
-            <input
-              type="text"
-              className={cx('container-infor-ch')}
-              onChange={(e) => setethnic(e.target.value)}
-              value={ethnic}
-            />
-          </div>
-          <div className={cx('container-infor')}>
             <label>Tôn giáo</label>
             <input
               type="text"
@@ -966,17 +1074,6 @@ function EidtPersonnel() {
               onChange={(e) => setReligion(e.target.value)}
               value={Religion}
             />
-          </div>
-          <div className={cx('container-infor')}>
-            <label>Quốc tịch</label>
-            <select
-              className={cx('select-filters-ch')}
-              onChange={(e) => setNationality(e.target.value)}
-              value={Nationality}
-            >
-              <option value="">Vui lòng chọn</option>
-              {listCountry}
-            </select>
           </div>
           <div className={cx('container-infor')}>
             <label>Trình độ học vấn</label>

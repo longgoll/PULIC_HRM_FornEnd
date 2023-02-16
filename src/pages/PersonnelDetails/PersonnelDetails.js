@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './PersonnelDetails.module.scss';
 //
-import { apiUrl, cookieValue } from '../../contexts/contexts';
+import { apiUrl, cookieValue, numberFormat } from '../../contexts/contexts';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
@@ -18,6 +18,13 @@ function PersonnelDetails() {
   const [dataDependentPerson, setdataDependentPerson] = useState([]);
   //reload nguwoif phụ thuộc
   const [ReloadDependentPerson, setReloadDependentPerson] = useState(true);
+  //check list
+  const [clnum1, setclnum1] = useState(false);
+  const [clnum2, setclnum2] = useState(false);
+  const [clnum3, setclnum3] = useState(false);
+  const [clnum4, setclnum4] = useState(false);
+  const [clnum5, setclnum5] = useState(false);
+  const [clnum6, setclnum6] = useState(false);
 
   //================================
   //thong bao
@@ -56,6 +63,13 @@ function PersonnelDetails() {
       .then((req) => {
         // console.log(req.data.data);
         setdataStaff(req.data.data);
+        const dataStaff = req.data.data;
+        setclnum1(dataStaff.checklist1);
+        setclnum2(dataStaff.checklist2);
+        setclnum3(dataStaff.checklist3);
+        setclnum4(dataStaff.checklist4);
+        setclnum5(dataStaff.checklist5);
+        setclnum6(dataStaff.checklist6);
       })
       .catch((error) => {});
     //laasy danh sách người phụ thuộc
@@ -298,6 +312,43 @@ function PersonnelDetails() {
               </li>
             </ul>
           </div>
+          {/*================*/}
+          <div className={cx('container2-1-2')}>
+            <div className={cx('title-infor')}>
+              <h4>Check list hồ sơ</h4>
+            </div>
+            <label className={cx('container')}>
+              Đơn xin việc
+              <input className={cx('input-checkbox')} type="checkbox" checked={clnum1} onChange={() => {}} />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Ảnh 3x4
+              <input className={cx('input-checkbox')} type="checkbox" checked={clnum2} onChange={() => {}} />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Sơ yếu lý lịch
+              <input className={cx('input-checkbox')} type="checkbox" checked={clnum3} onChange={() => {}} />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Sổ hộ khẩu/Giấy xác nhận nơi cư trú
+              <input className={cx('input-checkbox')} type="checkbox" checked={clnum4} onChange={() => {}} />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              CMND/CCCD
+              <input className={cx('input-checkbox')} type="checkbox" checked={clnum5} onChange={() => {}} />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Bảng thông tin ứng viên
+              <input className={cx('input-checkbox')} type="checkbox" checked={clnum6} onChange={() => {}} />
+              <span className={cx('checkmark')}></span>
+            </label>
+          </div>
+          {/*================*/}
           <div className={cx('container2-1-2')}>
             <div className={cx('title-infor')}>
               <h4>Thông tin công ty</h4>
@@ -440,15 +491,15 @@ function PersonnelDetails() {
               </li>
               <li>
                 <div className={cx('title')}>Lương cơ bản</div>
-                <div className={cx('text')}>{dataStaff.BasicSalary} VNĐ</div>
+                <div className={cx('text')}>{numberFormat.format(dataStaff.BasicSalary)} VNĐ</div>
               </li>
               <li>
                 <div className={cx('title')}>Mức đóng BHXH</div>
-                <div className={cx('text')}>{dataStaff.PaymentRateBHXH} VNĐ</div>
+                <div className={cx('text')}>{numberFormat.format(dataStaff.PaymentRateBHXH)} VNĐ</div>
               </li>
               <li>
                 <div className={cx('title')}>Mức trính BHXH</div>
-                <div className={cx('text')}>{dataStaff.ExcerptBHXH} VNĐ</div>
+                <div className={cx('text')}>{numberFormat.format(dataStaff.ExcerptBHXH)} VNĐ</div>
               </li>
               <li>
                 <div className={cx('title')}>Ngày báo tăng BHXH</div>

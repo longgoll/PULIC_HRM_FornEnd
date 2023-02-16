@@ -3,8 +3,8 @@ import styles from './personnel.module.scss';
 import Pagination from '@mui/material/Pagination';
 import {
   AiOutlineMore,
-  AiOutlineReload,
-  AiOutlineFilter,
+  // AiOutlineReload,
+  // AiOutlineFilter,
   AiOutlineUserAdd,
   AiOutlineCaretUp,
   AiOutlineCaretDown,
@@ -140,10 +140,10 @@ function Personnel() {
           setsort('IDcard1');
           setsortty(!sortty);
           break;
-        // case 5:
-        //   setsort('jobPosition');
-        //   setsortty(!sortty);
-        //   break;
+        case 5:
+          setsort('Company');
+          setsortty(!sortty);
+          break;
         case 6:
           setsort('group');
           setsortty(!sortty);
@@ -241,11 +241,8 @@ function Personnel() {
         <td className={cx('click-td')} onClick={nextDetailPersonnel(data._id)}>
           {data.numberNV}
         </td>
-        <td className={cx('click-td')}>
-          <img
-            src="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-1/img/13-small.d796bffd.png"
-            alt="avatar"
-          ></img>
+        <td className={cx('click-td')} onClick={nextDetailPersonnel(data._id)}>
+          {data.Company}
         </td>
         <td className={cx('click-td')} onClick={nextDetailPersonnel(data._id)}>
           {data.nameStaff}
@@ -307,7 +304,7 @@ function Personnel() {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
-        <div className={cx('container-filters-main')}>
+        {/* <div className={cx('container-filters-main')}>
           <label>Bộ lọc</label>
           <div className={cx('container-filters')}>
             <div className={cx('select-filters')}>
@@ -396,7 +393,7 @@ function Personnel() {
               Tìm kiếm
             </button>
           </div>
-        </div>
+        </div> */}
         <div className={cx('container-table')}>
           <div className={cx('container-show-main')}>
             <div className={cx('container-show')}>
@@ -470,7 +467,21 @@ function Personnel() {
                       )}
                       {sort !== 'numberNV' && 'MNV'}
                     </th>
-                    <th>Ảnh</th>
+                    <th onClick={sorttable(5)}>
+                      {sort === 'Company' && sortty === true && (
+                        <div className={cx('container-sort-th')}>
+                          Công ty
+                          <AiOutlineCaretUp className={cx('icon-up')} />
+                        </div>
+                      )}
+                      {sort === 'Company' && sortty === false && (
+                        <div className={cx('container-sort-th')}>
+                          Công ty
+                          <AiOutlineCaretDown className={cx('icon-dow')} />
+                        </div>
+                      )}
+                      {sort !== 'Company' && 'Công Ty'}
+                    </th>
                     <th onClick={sorttable(3)}>
                       {sort === 'nameStaff' && sortty === true && (
                         <div className={cx('container-sort-th')}>

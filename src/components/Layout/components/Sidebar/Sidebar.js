@@ -29,11 +29,11 @@ function Sidebar() {
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
         <div className={cx('container-logio')}>
-          <img
+          {/* <img
             className={cx('logo')}
             src="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-1/img/logo.36f34a9f.svg"
             alt="logo"
-          />
+          /> */}
           <NavLink to="/" style={{ textDecoration: 'none', color: 'inherit' }} className={cx('title-logo')}>
             HRM
           </NavLink>

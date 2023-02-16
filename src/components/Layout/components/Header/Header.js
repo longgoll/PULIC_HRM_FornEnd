@@ -66,11 +66,11 @@ function Header() {
             <p className={cx('p1')}>{data.Name}</p>
             <p className={cx('p2')}>{data.role}</p>
           </div>
-          <img
+          {/* <img
             onClick={handleClick}
             src="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-1/img/13-small.d796bffd.png"
             alt="avatar"
-          ></img>
+          ></img> */}
           {/* Menu */}
           <Menu
             anchorEl={anchorEl}
