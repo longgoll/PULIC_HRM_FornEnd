@@ -62,7 +62,7 @@ function Header() {
     <div className={cx('wrapper')}>
       <div className={cx('container')}>
         <div className={cx('container-infor')}>
-          <div className={cx('container-name')}>
+          <div className={cx('container-name')} onClick={handleClick}>
             <p className={cx('p1')}>{data.Name}</p>
             <p className={cx('p2')}>{data.role}</p>
           </div>
