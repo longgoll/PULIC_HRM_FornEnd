@@ -54,6 +54,7 @@ const AddPersonnel = () => {
   const [clnum4, setclnum4] = useState(false);
   const [clnum5, setclnum5] = useState(false);
   const [clnum6, setclnum6] = useState(false);
+  const [clnum7, setclnum7] = useState(false);
   //STT
   //   const [numberID, setnumberID] = useState('');
   //loại giấy tờ
@@ -227,6 +228,11 @@ const AddPersonnel = () => {
           checklist4: clnum4,
           checklist5: clnum5,
           checklist6: clnum6,
+          checklist7: clnum7,
+          checklistNumber: [clnum1, clnum2, clnum3, clnum4, clnum5, clnum6, clnum7].reduce(
+            (acc, val) => (val ? acc + 1 : acc),
+            0,
+          ),
           // numberID,
           numberNV,
           IssuedbyIDcard1,
@@ -601,6 +607,16 @@ const AddPersonnel = () => {
                 type="checkbox"
                 checked={clnum6}
                 onChange={() => setclnum6(!clnum6)}
+              />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Bằng cấp
+              <input
+                className={cx('input-checkbox')}
+                type="checkbox"
+                checked={clnum7}
+                onChange={() => setclnum7(!clnum7)}
               />
               <span className={cx('checkmark')}></span>
             </label>

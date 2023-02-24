@@ -102,7 +102,6 @@ function Personnel() {
         },
       })
       .then((req) => {
-        // console.log(req);
         setReloadTable(!ReloadTable);
         pupsuccess(req.data.message);
       })
@@ -141,7 +140,7 @@ function Personnel() {
           setsortty(!sortty);
           break;
         case 5:
-          setsort('Company');
+          setsort('checklistNumber');
           setsortty(!sortty);
           break;
         case 6:
@@ -192,6 +191,7 @@ function Personnel() {
           setStaff(res.data.dataPost);
           setcountPage(res.data.totalPage);
           // console.log(res.data.dataPost);
+          // console.log(res.data.dataPost[0]);
         })
         .catch((error) => {
           console.log(error.response.data.message);
@@ -249,6 +249,7 @@ function Personnel() {
         </td>
         <td className={cx('click-td')}>{data.IDcard1}</td>
         {/* <td className={cx('click-td')}>{data.jobPosition}</td> */}
+        <td>{data.checklistNumber}/7</td>
         <td className={cx('click-td')}>{data.group}</td>
         <td className={cx('click-td')}>{data.department}</td>
         <td className={cx('click-td')}>{data.companyBranch}</td>
@@ -512,21 +513,22 @@ function Personnel() {
                       )}
                       {sort !== 'IDcard1' && 'CCCD'}
                     </th>
-                    {/* <th onClick={sorttable(5)}>
-                      {sort === 'jobPosition' && sortty === true && (
+                    {/* <th>Hồ sơ</th> */}
+                    <th onClick={sorttable(5)}>
+                      {sort === 'checklistNumber' && sortty === true && (
                         <div className={cx('container-sort-th')}>
-                          Vị trí
+                          Hồ sơ
                           <AiOutlineCaretUp className={cx('icon-up')} />
                         </div>
                       )}
-                      {sort === 'jobPosition' && sortty === false && (
+                      {sort === 'checklistNumber' && sortty === false && (
                         <div className={cx('container-sort-th')}>
-                          Vị trí
+                          Hồ sơ
                           <AiOutlineCaretDown className={cx('icon-dow')} />
                         </div>
                       )}
-                      {sort !== 'jobPosition' && 'Vị trí'}
-                    </th> */}
+                      {sort !== 'checklistNumber' && 'Hồ sơ'}
+                    </th>
                     <th onClick={sorttable(6)}>
                       {sort === 'group' && sortty === true && (
                         <div className={cx('container-sort-th')}>

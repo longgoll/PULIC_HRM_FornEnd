@@ -25,6 +25,7 @@ function PersonnelDetails() {
   const [clnum4, setclnum4] = useState(false);
   const [clnum5, setclnum5] = useState(false);
   const [clnum6, setclnum6] = useState(false);
+  const [clnum7, setclnum7] = useState(false);
 
   //================================
   //thong bao
@@ -70,6 +71,7 @@ function PersonnelDetails() {
         setclnum4(dataStaff.checklist4);
         setclnum5(dataStaff.checklist5);
         setclnum6(dataStaff.checklist6);
+        setclnum7(dataStaff.checklist7);
       })
       .catch((error) => {});
     //laasy danh sách người phụ thuộc
@@ -345,6 +347,11 @@ function PersonnelDetails() {
             <label className={cx('container')}>
               Bảng thông tin ứng viên
               <input className={cx('input-checkbox')} type="checkbox" checked={clnum6} onChange={() => {}} />
+              <span className={cx('checkmark')}></span>
+            </label>
+            <label className={cx('container')}>
+              Bằng cấp
+              <input className={cx('input-checkbox')} type="checkbox" checked={clnum7} onChange={() => {}} />
               <span className={cx('checkmark')}></span>
             </label>
           </div>
